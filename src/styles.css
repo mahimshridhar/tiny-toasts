@@ -1,0 +1,147 @@
+.tiny-toasts-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  padding: 16px;
+}
+
+.tiny-toasts-top-right {
+  top: 0;
+  right: 0;
+}
+
+.tiny-toasts-top-left {
+  top: 0;
+  left: 0;
+}
+
+.tiny-toasts-top-center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tiny-toasts-bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.tiny-toasts-bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.tiny-toasts-bottom-center {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tiny-toasts {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: pink;
+}
+
+.tiny-toasts-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tiny-toasts-hide {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.tiny-toasts-success {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.tiny-toasts-error {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.tiny-toasts-info {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.tiny-toasts-warning {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.tiny-toasts-content {
+  flex: 1;
+  font-weight: 500;
+}
+
+.tiny-toasts-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.tiny-toasts-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.tiny-toasts-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  animation-play-state: running;
+  width: 0%;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .tiny-toasts-container {
+    max-width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+  }
+
+  .tiny-toasts {
+    margin: 0 8px;
+  }
+}

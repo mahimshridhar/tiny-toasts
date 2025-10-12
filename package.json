@@ -1,0 +1,35 @@
+{
+  "name": "tiny-toasts",
+  "version": "0.1.0",
+  "description": "Simple toast library - early development",
+  "main": "./dist/tiny-toasts.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "webpack serve --mode development",
+    "build": "rm -rf dist && webpack --mode production && tsc --emitDeclarationOnly"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.2.0",
+    "jsdom": "^27.1.0",
+    "style-loader": "^4.0.0",
+    "ts-jest": "^29.4.5",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^30.2.0"
+  }
+}
