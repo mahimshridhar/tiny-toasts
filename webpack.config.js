@@ -1,22 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = (env, argv) => {
+module.exports = (_, argv) => {
   const isDev = argv.mode === "development";
 
-  return {
+  const baseConfig = {
     entry: "./src/index.ts",
-    output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "tiny-toasts.js",
-      library: {
-        name: "tinyToasts",
-        type: "umd",
-        export: "default",
-      },
-      globalObject: "this",
-      clean: true,
-    },
     resolve: {
       extensions: [".ts", ".js"],
     },
@@ -29,7 +19,9 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          use: isDev
+            ? ["style-loader", "css-loader"]
+            : [MiniCssExtractPlugin.loader, "css-loader"],
         },
       ],
     },
@@ -39,11 +31,40 @@ module.exports = (env, argv) => {
             template: "./demo.html",
           }),
         ]
-      : [],
-    devServer: {
-      static: "./dist",
-      hot: true,
-      port: 3000,
-    },
+      : [new MiniCssExtractPlugin({ filename: "tiny-toasts.css" })],
   };
+
+  return [
+    {
+      ...baseConfig,
+      devServer: {
+        static: "./dist",
+        hot: true,
+        port: 3000,
+      },
+      output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "tiny-toasts.umd.js",
+        library: {
+          name: "tinyToasts",
+          type: "umd",
+          export: "default",
+        },
+        globalObject: "this",
+      },
+    },
+    {
+      ...baseConfig,
+      output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "tiny-toasts.esm.js",
+        library: {
+          type: "module",
+        },
+      },
+      experiments: {
+        outputModule: true,
+      },
+    },
+  ];
 };

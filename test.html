@@ -1,0 +1,21 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/tiny-toasts.css" />
+  </head>
+  <body>
+    <!-- <script src="./dist/tiny-toasts.umd.js"></script>
+    <script>
+      console.log(tinyToasts); // Should exist
+      tinyToasts.success("Test!");
+    </script> -->
+    <script type="module">
+      // Import from local file
+      import tinyToasts from "./dist/tiny-toasts.esm.js";
+      console.log(tinyToasts);
+      tinyToasts.success("ESM works!");
+    </script>
+  </body>
+</html>
