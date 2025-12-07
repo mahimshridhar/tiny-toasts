@@ -1,6 +1,6 @@
 {
   "name": "tiny-toasts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple toast library - early development",
   "main": "./dist/tiny-toasts.umd.js",
   "module": "./dist/tiny-toasts.esm.js",
@@ -21,7 +21,9 @@
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build"
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "files": [
     "dist"
   ],
