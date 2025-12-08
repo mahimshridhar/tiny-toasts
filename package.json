@@ -12,11 +12,12 @@
       "import": "./dist/tiny-toasts.esm.js",
       "require": "./dist/tiny-toasts.umd.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./dist/tiny-toasts.css": "./dist/tiny-toasts.css"
   },
   "scripts": {
-    "dev": "webpack serve --mode development",
-    "build": "npm run clean && webpack --mode production",
+    "dev": "webpack serve --mode development --config webpack.config.dev.js",
+    "build": "npm run clean && webpack --mode production --config webpack.config.prod.js",
     "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build"

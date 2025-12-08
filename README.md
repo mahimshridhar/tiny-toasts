@@ -17,10 +17,29 @@
 - 🔄 TypeScript definitions
 - 🔄 React/Vue wrappers
 
-## Installation
+## Install
 
-1. Install: `npm install tiny-toasts`
-2. Add CSS: `<link rel="stylesheet" href="node_modules/tiny-toasts/dist/tiny-toasts.css">`
+npm install tiny-toasts
+
+## Usage ES Modules
+
+```javascript
+import toast from "tiny-toasts";
+import "tiny-toasts/dist/tiny-toasts.css";
+
+toast.success("Hello!");
+toast.error("Oops!");
+```
+
+## Usage CDN
+
+```javascript
+<link rel="stylesheet" href="https://unpkg.com/tiny-toasts/dist/tiny-toasts.css">
+<script src="https://unpkg.com/tiny-toasts"></script>
+<script>
+  tinyToasts.success('Hello from CDN!');
+</script>
+```
 
 ## 🚀 Quick Usage
 
