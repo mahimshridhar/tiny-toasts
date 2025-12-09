@@ -1,6 +1,6 @@
 {
   "name": "tiny-toasts",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Simple toast library - early development",
   "main": "./dist/tiny-toasts.umd.js",
   "module": "./dist/tiny-toasts.esm.js",
