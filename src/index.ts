@@ -1,4 +1,4 @@
-import { defaultOptions, MAX_DELAY, MAX_TOASTS } from "./constants";
+import { defaultOptions, MAX_DELAY, MAX_TOASTS, ToastType } from "./constants";
 import { ToastContainerType, ToastOptions, ToastPosition } from "./types";
 import "./styles.css";
 
@@ -11,10 +11,8 @@ function removeToast(toast: Element, position: ToastPosition) {
   toast.classList.add("tiny-toasts-hide");
 
   setTimeout(() => {
-    try {
-      if (container?.contains(toast)) container?.removeChild(toast);
-    } catch {}
-  }, 500);
+    if (container?.contains(toast)) container?.removeChild(toast);
+  }, 300);
 }
 
 function showToast(message: string, type: string, toastOptions?: ToastOptions) {
@@ -34,9 +32,9 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
   const toast = document.createElement("div");
   const content = document.createElement("div");
 
-  let timerId: any;
+  let timerId: NodeJS.Timeout | null;
   let remainingTime = duration;
-  let pausedAt: any = 0;
+  let pausedAt = 0;
   let isPaused = false;
 
   const clearExistingTimer = () => {
@@ -157,15 +155,25 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
   };
 }
 
+function clearAll() {
+  toastContainer.forEach((container, position) => {
+    const children = container.querySelectorAll(".tiny-toasts");
+    children.forEach((toast) => {
+      removeToast(toast, position);
+    });
+  });
+}
+
 const toast = {
-  success: (message: any, options?: ToastOptions) =>
-    showToast(message, "success", options),
+  success: (message: string, options?: ToastOptions) =>
+    showToast(message, ToastType.success, options),
   error: (message: string, options?: ToastOptions) =>
-    showToast(message, "error", options),
+    showToast(message, ToastType.error, options),
   info: (message: string, options?: ToastOptions) =>
-    showToast(message, "info", options),
+    showToast(message, ToastType.info, options),
   warning: (message: string, options?: ToastOptions) =>
-    showToast(message, "warning", options),
+    showToast(message, ToastType.warning, options),
+  clear: () => clearAll(),
 };
 
 export default toast;
