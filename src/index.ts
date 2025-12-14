@@ -1,4 +1,10 @@
-import { defaultOptions, MAX_DELAY, MAX_TOASTS, ToastType } from "./constants";
+import {
+  defaultOptions,
+  MAX_DELAY,
+  MAX_TOASTS,
+  TOAST_DURATION,
+  ToastType,
+} from "./constants";
 import { ToastContainerType, ToastOptions, ToastPosition } from "./types";
 import "./styles.css";
 
@@ -9,10 +15,9 @@ function removeToast(toast: Element, position: ToastPosition) {
   const container = toastContainer.get(position);
   toast.classList.remove("tiny-toasts-show");
   toast.classList.add("tiny-toasts-hide");
-
   setTimeout(() => {
     if (container?.contains(toast)) container?.removeChild(toast);
-  }, 300);
+  }, TOAST_DURATION);
 }
 
 function showToast(message: string, type: string, toastOptions?: ToastOptions) {
@@ -33,8 +38,7 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
   const content = document.createElement("div");
 
   let timerId: NodeJS.Timeout | null;
-  let remainingTime = duration;
-  let pausedAt = 0;
+  let toastShouldEndAt = Date.now() + duration;
   let isPaused = false;
 
   const clearExistingTimer = () => {
@@ -46,17 +50,16 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
 
   const startTimer = () => {
     clearExistingTimer();
+    const timerLeft = Math.max(0, toastShouldEndAt - Date.now());
     timerId = setTimeout(() => {
       removeToast(toast, position);
-    }, remainingTime);
+    }, timerLeft);
   };
 
   const pauseTimer = () => {
     if (!isPaused && timerId) {
       isPaused = true;
-      pausedAt = Date.now();
       clearExistingTimer();
-
       if (showProgress) {
         const progressBar = toast.querySelector(
           ".tiny-toasts-progress"
@@ -71,9 +74,7 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
   const resumeTimer = () => {
     if (isPaused) {
       isPaused = false;
-      const elapsed = Date.now() - pausedAt;
-      remainingTime = Math.max(0, remainingTime - elapsed);
-
+      const timerLeft = Math.max(0, toastShouldEndAt - Date.now());
       if (showProgress) {
         const progressBar = toast.querySelector(
           ".tiny-toasts-progress"
@@ -81,7 +82,7 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
 
         if (progressBar) {
           progressBar.style.animationPlayState = "running";
-          progressBar.style.animation = `shrink ${remainingTime}ms linear`;
+          progressBar.style.animation = `shrink ${timerLeft}ms linear`;
         }
       }
 
@@ -136,7 +137,6 @@ function showToast(message: string, type: string, toastOptions?: ToastOptions) {
 
   const existingToasts =
     currentToastContainer?.querySelectorAll(".tiny-toasts");
-
   if (existingToasts && existingToasts.length >= MAX_TOASTS) {
     const oldest = existingToasts[0];
     removeToast(oldest, position);
@@ -162,6 +162,20 @@ function clearAll() {
       removeToast(toast, position);
     });
   });
+
+  toastContainer.clear();
+  lastToastTime = 0;
+}
+
+function resetForTesting() {
+  toastContainer.clear();
+  lastToastTime = 0;
+  const allContainers = document.querySelectorAll(
+    '[class*="tiny-toasts-container"]'
+  );
+  allContainers.forEach((container) => {
+    container.remove();
+  });
 }
 
 const toast = {
@@ -174,6 +188,7 @@ const toast = {
   warning: (message: string, options?: ToastOptions) =>
     showToast(message, ToastType.warning, options),
   clear: () => clearAll(),
+  _resetForTesting: resetForTesting,
 };
 
 export default toast;

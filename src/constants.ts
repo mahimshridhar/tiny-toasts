@@ -3,6 +3,7 @@ import { defaultOptionsType } from "./types";
 export const MAX_DELAY = 350;
 
 export const MAX_TOASTS = 5;
+export const TOAST_DURATION = 300;
 
 export enum ToastType {
   success = "success",

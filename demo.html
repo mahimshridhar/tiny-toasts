@@ -87,7 +87,7 @@
       <div class="button-group">
         <button onclick="showLongDuration()">Long Duration (10s)</button>
         <button onclick="showNoClose()">No Close Button</button>
-        <button onclick="showCustomClass()">Custom Styling</button>
+        <!-- <button onclick="showCustomClass()">Custom Styling</button> -->
       </div>
     </div>
 
@@ -100,24 +100,67 @@
     </div>
 
     <script>
+      const toastMessages = [
+        "Your toast has been buttered successfully 🧈",
+        "Task failed successfully! 🎉",
+        "Did you remember to feed the code hamsters? 🐹",
+        "The internet is now 0.0001% more organized 🌐",
+        "Your request is being processed by trained squirrels 🐿️",
+        "Congratulations! You've won the 'Most Patient User' award 🏆",
+        "The server is thinking... but it's taking a coffee break ☕",
+        "Data uploaded to the cloud (literally, look outside) ☁️",
+        "Your file has been saved in a very safe place (we promise) 🔒",
+        "Error 404: Witty message not found 🤷‍♂️",
+        "Loading... (insert elevator music here) 🎵",
+        "This toast is 100% organic and gluten-free 🌱",
+        "Your cat would approve of this action 🐱",
+        "Success! The universe is now slightly more aligned 🌌",
+        "Warning: This toast may contain traces of awesomeness ⚠️",
+        "Your code compiled on the first try! (Just kidding) 💻",
+        "Merge conflict resolved with the power of friendship ❤️",
+        "npm install completed without any peer dependencies! (Miracle) 📦",
+        "All tests passed. Time for a victory dance 💃",
+        "Deployment successful. Go touch some grass now 🌿",
+        "Toasting your success... lightly browned and crispy 🍞",
+        "The AI overlords are pleased with your submission 🤖",
+        "Cache cleared successfully (your secrets are safe with us) 🕵️",
+        "Password strength: Strong enough to hold up the internet 💪",
+        "Your meme has been archived for future generations 📚",
+        "Syncing with the mothership... connection established 🛸",
+        "Digital high-five received and logged ✋",
+        "Your patience is being converted into good karma ⚡",
+        "The robots are happy with your life choices 🤖❤️",
+        "Notification sent to parallel universe (they're impressed) 🌌",
+      ];
+
+      const handleMsgs = () => {
+        const msgIndex = Math.floor(Math.random() * 20);
+        const msg = toastMessages[msgIndex];
+        return msg;
+      };
+
       function showSuccess() {
-        const c = tinyToasts.success("Operation completed successfully!");
+        tinyToasts.success(handleMsgs(), {
+          closable: true,
+          pauseOnHover: true,
+          showProgress: true,
+        });
       }
 
       function showError() {
-        tinyToasts.error("Oops! Something went wrong.");
+        tinyToasts.error(handleMsgs());
       }
 
       function showInfo() {
-        tinyToasts.info("Here is some useful information.");
+        tinyToasts.info(handleMsgs());
       }
 
       function showWarning() {
-        tinyToasts.warning("Please be careful with this action.");
+        tinyToasts.warning(handleMsgs());
       }
 
       function showPosition(position) {
-        tinyToasts.info(`Toast at ${position}`, { position });
+        tinyToasts.info(handleMsgs(), { position });
       }
 
       function showLongDuration() {

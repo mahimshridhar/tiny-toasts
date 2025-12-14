@@ -1,44 +1,61 @@
 .tiny-toasts-container {
+  --tiny-toast-bg-success: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --tiny-toast-bg-error: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --tiny-toast-bg-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --tiny-toast-bg-warning: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+
+  --tiny-toast-text-color: white;
+  --tiny-toast-gap: 12px;
+  --tiny-toast-max-width: 420px;
+  --tiny-toast-container-padding: 16px;
+  --tiny-toast-zero: 0;
+
   position: fixed;
   z-index: 9999;
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 420px;
-  padding: 16px;
+  gap: var(--tiny-toast-gap);
+  padding: var(--tiny-toast-container-padding);
+  min-width: 500px;
 }
 
 .tiny-toasts-top-right {
-  top: 0;
-  right: 0;
+  top: var(--tiny-toast-zero);
+  right: var(--tiny-toast-zero);
+  align-items: flex-end;
 }
 
 .tiny-toasts-top-left {
-  top: 0;
-  left: 0;
+  top: var(--tiny-toast-zero);
+  left: var(--tiny-toast-zero);
+  align-items: flex-start;
 }
 
 .tiny-toasts-top-center {
-  top: 0;
+  top: var(--tiny-toast-zero);
   left: 50%;
   transform: translateX(-50%);
+  align-items: flex-start;
 }
 
 .tiny-toasts-bottom-right {
-  bottom: 0;
-  right: 0;
+  bottom: var(--tiny-toast-zero);
+  right: var(--tiny-toast-zero);
+  align-items: flex-end;
 }
 
 .tiny-toasts-bottom-left {
-  bottom: 0;
-  left: 0;
+  bottom: var(--tiny-toast-zero);
+  left: var(--tiny-toast-zero);
+  align-items: flex-start;
 }
 
 .tiny-toasts-bottom-center {
-  bottom: 0;
+  bottom: var(--tiny-toast-zero);
   left: 50%;
   transform: translateX(-50%);
+  align-items: flex-start;
 }
 
 .tiny-toasts {
@@ -54,9 +71,11 @@
     Ubuntu, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  opacity: 0;
+  opacity: var(--tiny-toast-zero);
   transform: translateY(-20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 400px;
+  min-width: 200px;
 }
 
 .tiny-toasts-show {
@@ -65,28 +84,32 @@
 }
 
 .tiny-toasts-hide {
-  opacity: 0;
+  opacity: var(--tiny-toast-zero);
   transform: translateY(-20px);
 }
 
 .tiny-toasts-success {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--tiny-toast-bg-success);
+  color: var(--tiny-toast-text-color);
+  overflow: hidden;
 }
 
 .tiny-toasts-error {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  background: var(--tiny-toast-bg-error);
+  color: var(--tiny-toast-text-color);
+  overflow: hidden;
 }
 
 .tiny-toasts-info {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  color: white;
+  background: var(--tiny-toast-bg-info);
+  color: var(--tiny-toast-text-color);
+  overflow: hidden;
 }
 
 .tiny-toasts-warning {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  color: white;
+  background: var(--tiny-toast-bg-warning);
+  color: var(--tiny-toast-text-color);
+  overflow: hidden;
 }
 
 .tiny-toasts-content {
@@ -104,7 +127,7 @@
   line-height: 1;
   padding: 4px 8px;
   transition: background 0.2s;
-  flex-shrink: 0;
+  flex-shrink: var(--tiny-toast-zero);
 }
 
 .tiny-toasts-close:hover {
@@ -113,11 +136,10 @@
 
 .tiny-toasts-progress {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: var(--tiny-toast-zero);
+  left: var(--tiny-toast-zero);
   height: 3px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  background: rgba(255, 255, 255, 0.5);
   animation-play-state: running;
   width: 0%;
 }
