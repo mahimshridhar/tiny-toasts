@@ -2,6 +2,8 @@
 
 > A minimal toast notification library. Currently in early development, improving over time.
 
+**👉 [Try it live!](https://mahimshridhar.github.io/tiny-toasts/)**
+
 **What works:**
 
 - ✅ Basic toast display
