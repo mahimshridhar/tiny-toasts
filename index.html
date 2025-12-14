@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tiny Toast Demo</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        padding: 40px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin-bottom: 40px;
+      }
+      .button-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+      button {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        transform: translateY(-2px);
+      }
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+      .btn-error {
+        background: #ef4444;
+        color: white;
+      }
+      .btn-info {
+        background: #3b82f6;
+        color: white;
+      }
+      .btn-warning {
+        background: #f59e0b;
+        color: white;
+      }
+      .section {
+        margin-bottom: 40px;
+      }
+      h2 {
+        margin-bottom: 16px;
+        color: #374151;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🍞 Tiny Toast Demo</h1>
+
+    <div class="section">
+      <h2>Basic Toasts</h2>
+      <div class="button-group">
+        <button class="btn-success" onclick="showSuccess()">Success</button>
+        <button class="btn-error" onclick="showError()">Error</button>
+        <button class="btn-info" onclick="showInfo()">Info</button>
+        <button class="btn-warning" onclick="showWarning()">Warning</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Positions</h2>
+      <div class="button-group">
+        <button onclick="showPosition('top-left')">Top Left</button>
+        <button onclick="showPosition('top-center')">Top Center</button>
+        <button onclick="showPosition('top-right')">Top Right</button>
+        <button onclick="showPosition('bottom-left')">Bottom Left</button>
+        <button onclick="showPosition('bottom-center')">Bottom Center</button>
+        <button onclick="showPosition('bottom-right')">Bottom Right</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Options</h2>
+      <div class="button-group">
+        <button onclick="showLongDuration()">Long Duration (10s)</button>
+        <button onclick="showNoClose()">No Close Button</button>
+        <!-- <button onclick="showCustomClass()">Custom Styling</button> -->
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Actions</h2>
+      <div class="button-group">
+        <button onclick="clearAll()">Clear All</button>
+        <button onclick="spamToasts()">Spam Toasts</button>
+      </div>
+    </div>
+    <script src="https://unpkg.com/tiny-toasts"></script>
+    <script>
+      const toastMessages = [
+        "Your toast has been buttered successfully 🧈",
+        "Task failed successfully! 🎉",
+        "Did you remember to feed the code hamsters? 🐹",
+        "The internet is now 0.0001% more organized 🌐",
+        "Your request is being processed by trained squirrels 🐿️",
+        "Congratulations! You've won the 'Most Patient User' award 🏆",
+        "The server is thinking... but it's taking a coffee break ☕",
+        "Data uploaded to the cloud (literally, look outside) ☁️",
+        "Your file has been saved in a very safe place (we promise) 🔒",
+        "Error 404: Witty message not found 🤷‍♂️",
+        "Loading... (insert elevator music here) 🎵",
+        "This toast is 100% organic and gluten-free 🌱",
+        "Your cat would approve of this action 🐱",
+        "Success! The universe is now slightly more aligned 🌌",
+        "Warning: This toast may contain traces of awesomeness ⚠️",
+        "Your code compiled on the first try! (Just kidding) 💻",
+        "Merge conflict resolved with the power of friendship ❤️",
+        "npm install completed without any peer dependencies! (Miracle) 📦",
+        "All tests passed. Time for a victory dance 💃",
+        "Deployment successful. Go touch some grass now 🌿",
+        "Toasting your success... lightly browned and crispy 🍞",
+        "The AI overlords are pleased with your submission 🤖",
+        "Cache cleared successfully (your secrets are safe with us) 🕵️",
+        "Password strength: Strong enough to hold up the internet 💪",
+        "Your meme has been archived for future generations 📚",
+        "Syncing with the mothership... connection established 🛸",
+        "Digital high-five received and logged ✋",
+        "Your patience is being converted into good karma ⚡",
+        "The robots are happy with your life choices 🤖❤️",
+        "Notification sent to parallel universe (they're impressed) 🌌",
+      ];
+
+      const handleMsgs = () => {
+        const msgIndex = Math.floor(Math.random() * 20);
+        const msg = toastMessages[msgIndex];
+        return msg;
+      };
+
+      function showSuccess() {
+        tinyToasts.success(handleMsgs(), {
+          closable: true,
+          pauseOnHover: true,
+          showProgress: true,
+        });
+      }
+
+      function showError() {
+        tinyToasts.error(handleMsgs());
+      }
+
+      function showInfo() {
+        tinyToasts.info(handleMsgs());
+      }
+
+      function showWarning() {
+        tinyToasts.warning(handleMsgs());
+      }
+
+      function showPosition(position) {
+        tinyToasts.info(handleMsgs(), { position });
+      }
+
+      function showLongDuration() {
+        tinyToasts.info("This toast stays for 10 seconds", { duration: 10000 });
+      }
+
+      function showNoClose() {
+        tinyToasts.success("No close button here", { closable: false });
+      }
+
+      function showCustomClass() {
+        tinyToasts.success("Custom styled toast", {
+          className: "my-custom-toast",
+        });
+      }
+
+      function clearAll() {
+        tinyToasts.clear();
+      }
+
+      function spamToasts() {
+        for (let i = 1; i <= 5; i++) {
+          setTimeout(() => {
+            tinyToasts.info(`Toast #${i}`);
+          }, i * 200);
+        }
+      }
+    </script>
+    <script>
+      console.log("HtmlWebpackPlugin tags:", window.htmlWebpackPlugin);
+    </script>
+    <!-- <%= htmlWebpackPlugin.tags.bodyTags %> -->
+  </body>
+</html>
